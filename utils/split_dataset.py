@@ -4,6 +4,7 @@
 from pathlib import Path
 import random
 import shutil
+import json
 
 RAW_DIR = Path('data/raw')
 TRAIN_DIR = Path('data/train')
@@ -33,3 +34,12 @@ for path in val_paths:
     shutil.move(str(path), dest_dir / path.name)
 
 print(f"Moved {len(train_paths)} images to {TRAIN_DIR} and {len(val_paths)} to {VAL_DIR}.")
+
+# Build class index mapping from folders in training directory
+class_names = sorted({p.name for p in TRAIN_DIR.iterdir() if p.is_dir()})
+class_index = {name: idx for idx, name in enumerate(class_names)}
+
+# Save mapping to utils/class_index.json
+index_file = Path('utils/class_index.json')
+index_file.write_text(json.dumps(class_index, indent=2))
+print(f"Saved class index mapping to {index_file}")
