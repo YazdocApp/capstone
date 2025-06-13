@@ -18,6 +18,12 @@ Use the provided script to download the aesthetic face recognition dataset:
 ./utils/download_dataset.sh
 ```
 
+After downloading, organize the images into training and validation folders:
+
+```bash
+python utils/split_dataset.py
+```
+
 ## Train
 
 Use the provided notebook to verify that PyTorch sees your GPU and to begin model development:
